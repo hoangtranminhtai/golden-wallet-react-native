@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
   },
   textView: {
     paddingBottom: 20,
-    paddingTop: 20,
     paddingLeft: 20,
     backgroundColor: AppStyle.backgroundTextInput
   }
