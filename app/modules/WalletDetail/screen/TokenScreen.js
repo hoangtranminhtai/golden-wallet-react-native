@@ -16,6 +16,7 @@ import LayoutUtils from '../../../commons/LayoutUtils'
 import ShimmerTokenItem from '../elements/ShimmerTokenItem'
 import MainStore from '../../../AppStores/MainStore'
 import NavStore from '../../../AppStores/NavStore'
+import WalletDetailStore from '../store/WalletDetailStore';
 
 const marginTop = LayoutUtils.getExtraTop()
 
@@ -27,6 +28,12 @@ export default class TokenScreen extends Component {
 
   static defaultProps = {
     navigation: null
+  }
+
+  state = {
+    list: [],
+    offset: 0,
+    overload: false
   }
 
   componentDidMount() {
@@ -52,6 +59,26 @@ export default class TokenScreen extends Component {
     MainStore.goToSendTx()
     MainStore.sendTransaction.changeIsToken(MainStore.appState.selectedToken.symbol !== 'ETH')
     navigation.navigate('TransactionListScreen')
+  }
+
+  loadMoreData = () => {
+    const { offset, overload } = this.state
+    const { chunkTokens } = this.wallet
+    if (overload && offset < chunkTokens.length - 1) {
+      this.setState({
+        list: [...this.state.list, ...chunkTokens[this.state.offset]],
+        offset: this.state.offset + 1
+      })
+    }
+  }
+
+  loadInitialData = () => {
+    const { chunkTokens } = this.wallet
+    this.setState({
+      list: chunkTokens[0],
+      overload: chunkTokens.length > 1,
+      offset: this.state.offset + 1
+    })
   }
 
   onBackup = () => {
@@ -149,9 +176,11 @@ export default class TokenScreen extends Component {
     const {
       title,
       tokens,
+      chunkTokens,
       refreshing
     } = this.wallet
-
+    setTimeout(() => console.log(tokens), 5000)
+    setTimeout(() => console.log(WalletDetailStore.getDataTokens), 5000)
     return (
       <View style={{ flex: 1 }}>
         <NavigationHeader
@@ -171,12 +200,15 @@ export default class TokenScreen extends Component {
             this._renderHeader(this.wallet)
           }
           ListFooterComponent={this._renderFooter(this.wallet)}
-          data={tokens}
+          data={WalletDetailStore.getList}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => `${item.symbol}-${item.address}`}
           refreshing={refreshing}
           onRefresh={this.onRefreshToken}
           renderItem={this.renderItem}
+          onEndReached={() => {
+            WalletDetailStore.nextPage()
+          }}
         />
       </View>
     )

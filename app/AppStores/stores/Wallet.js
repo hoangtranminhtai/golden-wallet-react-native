@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx'
+import chunk from 'lodash.chunk'
 import BigNumber from 'bignumber.js'
 import WalletToken from './WalletToken'
 import Keystore from '../../../Libs/react-native-golden-keystore'
@@ -55,6 +56,8 @@ export default class Wallet {
   @observable transactions = []
   @observable isRefresh = false
   @observable importType = null
+
+  @observable chunkTokens = []
 
   static async generateNew(secureDS, title, index = 0, path = Keystore.CoinType.ETH.path) {
     if (!secureDS) throw new Error('Secure data source is required')
@@ -197,6 +200,7 @@ export default class Wallet {
 
   @action setTokens(tokens) {
     this.tokens = tokens
+    this.chunkTokens = chunk(tokens, 5)
   }
 
   @action autoSetSelectedTokenIfNeeded(_tokens) {
