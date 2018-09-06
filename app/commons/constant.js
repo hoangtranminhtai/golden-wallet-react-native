@@ -7,6 +7,7 @@ export default {
   ADD_NEW_WALLET: 'Add new wallet',
   SCAN_QR_CODE: 'Scan QR Code',
   COPY: 'Copy',
+  SHARE: 'Share',
   TRANSACTIONS: 'Transactions',
   TOKEN: 'Token',
   ETHEREUM: 'Ethereum',
@@ -70,5 +71,10 @@ export default {
   EXISTED_NAME_AB: 'Address Book name already exists.',
 
   CREATE_WALLET_SUCCESS: 'Create Wallet Success',
-  IMPORT_WALLET_SUCCESS: 'Import Wallet Success'
+  IMPORT_WALLET_SUCCESS: 'Import Wallet Success',
+
+  SCAN_QR_FRAME: 'Automatically scan the QR code into the frame',
+  EXISTED_WALLET_NAME: 'Wallet name already exists.',
+  NO_WALLET_NAME_FOUND: 'Wallet name does not match.'
+
 }

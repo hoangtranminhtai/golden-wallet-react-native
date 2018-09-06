@@ -40,6 +40,18 @@ import ExportPrivateKeyScreen from './modules/Setting/screen/ExportPrivateKeyScr
 import NewUpdatedAvailableScreen from './modules/WalletList/screen/NewUpdatedAvailableScreen'
 import AppVersionScreen from './modules/Setting/screen/AppVersionScreen'
 import EnraseNotifScreen from './modules/Unlock/screen/EnraseNotifScreen'
+import TransactionDetailScreen from './modules/TransactionDetail/screen/TransactionDetailScreen'
+import DAppBrowserScreen from './modules/DAppBrowser/DAppBrowserScreen'
+import DAppListScreen from './modules/DAppBrowser/screen/DAppListScreen'
+import ConfirmScreen from './modules/SendTransaction/screen/ConfirmScreen'
+import DAppConfirmScreen from './modules/DAppBrowser/screen/DappConfirmScreen'
+import CollectibleScreen from './modules/Collectibles/screen/CollectibleScreen'
+import CollectibleDetailScreen from './modules/Collectibles/screen/CollectibleDetailScreen'
+import CollectibleListScreen from './modules/Collectibles/screen/CollectibleListScreen'
+import ManageWalletDetailScreen from './modules/Setting/screen/ManageWalletDetailScreen'
+import EditWalletNameScreen from './modules/Setting/screen/EditWalletNameScreen'
+import RemoveWalletScreen from './modules/Setting/screen/RemoveWalletScreen'
+import AddPrivateKeyScreen from './modules/Setting/screen/AddPrivateKeyScreen'
 
 const BackupStack = StackNavigator(
   {
@@ -127,6 +139,30 @@ const HomeStack = StackNavigator(
         header: null
       }
     },
+    ManageWalletDetailScreen: {
+      screen: ManageWalletDetailScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    EditWalletNameScreen: {
+      screen: EditWalletNameScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    RemoveWalletScreen: {
+      screen: RemoveWalletScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    AddPrivateKeyScreen: {
+      screen: AddPrivateKeyScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
     ExportPrivateKeyScreen: {
       screen: ExportPrivateKeyScreen,
       navigationOptions: {
@@ -186,6 +222,54 @@ const HomeStack = StackNavigator(
       navigationOptions: {
         header: null
       }
+    },
+    TransactionDetailScreen: {
+      screen: TransactionDetailScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    DAppWebScreen: {
+      screen: DAppBrowserScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    CollectibleScreen: {
+      screen: CollectibleScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    CollectibleDetailScreen: {
+      screen: CollectibleDetailScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    CollectibleListScreen: {
+      screen: CollectibleListScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    DAppListScreen: {
+      screen: DAppListScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    DAppBrowserScreen: {
+      screen: DAppBrowserScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    DAppConfirmScreen: {
+      screen: DAppConfirmScreen,
+      navigationOptions: {
+        header: null
+      }
     }
   },
   {
@@ -210,6 +294,12 @@ const CreateSendTransactionStack = StackNavigator(
     },
     ScanQRCodeScreen: {
       screen: ScanQRCodeScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    ConfirmScreen: {
+      screen: ConfirmScreen,
       navigationOptions: {
         header: null
       }
@@ -306,6 +396,13 @@ const Router = StackNavigator(
         header: null
       }
     },
+    // ManageWalletStack: {
+    //   screen: ManageWalletStack,
+    //   navigationOptions: {
+    //     header: null
+    //     // gesturesEnabled: false
+    //   }
+    // },
     BackupStack: {
       screen: BackupStack,
       navigationOptions: {
