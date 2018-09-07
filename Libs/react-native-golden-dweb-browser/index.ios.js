@@ -5,9 +5,7 @@ import {
 } from 'react-native'
 import WKWebView from 'react-native-wkwebview-reborn'
 import PropTypes from 'prop-types'
-import RNFS from 'react-native-fs'
 import web3 from './web3'
-import web3New from './web3.v1'
 
 export default class GoldenDWebBrowser extends Component {
   static propTypes = {
@@ -19,7 +17,10 @@ export default class GoldenDWebBrowser extends Component {
     onSignTransaction: PropTypes.func, // important
     onSignMessage: PropTypes.func,
     onSignPersonalMessage: PropTypes.func,
-    onSignTypedMessage: PropTypes.func
+    onSignTypedMessage: PropTypes.func,
+    jsContent: PropTypes.string.isRequired,
+    onLoadEnd: PropTypes.func,
+    onLoadStart: PropTypes.func
   }
 
   static defaultProps = {
@@ -28,7 +29,9 @@ export default class GoldenDWebBrowser extends Component {
     onSignTransaction: (data) => { },
     onSignMessage: (data) => { },
     onSignPersonalMessage: (data) => { },
-    onSignTypedMessage: (data) => { }
+    onSignTypedMessage: (data) => { },
+    onLoadEnd: () => { },
+    onLoadStart: () => { }
   }
 
   _onMessage(payload) {
@@ -77,7 +80,9 @@ export default class GoldenDWebBrowser extends Component {
       addressHex,
       network,
       infuraAPIKey = 'llyrtzQ3YhkdESt2Fzrk',
-      jsContent
+      jsContent,
+      onLoadEnd,
+      onLoadStart
     } = this.props
 
     return (
@@ -91,6 +96,8 @@ export default class GoldenDWebBrowser extends Component {
           mixedContentMode="compatibility"
           javaScriptEnabled={true}
           style={styles.webView}
+          onLoadEnd={onLoadEnd}
+          onLoadStart={onLoadStart}
         />
       </View>
     )
@@ -192,7 +199,8 @@ const getJavascript = function (addressHex, network, infuraAPIKey, jsContent) {
     }
     
     init();
-    window.web3 = new Web3(goldenProvider)
+    
+    web3 = new Web3(goldenProvider)
 
     web3.eth.defaultAccount = addressHex
   
