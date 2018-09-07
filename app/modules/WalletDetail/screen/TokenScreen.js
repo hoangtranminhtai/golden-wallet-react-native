@@ -61,25 +61,25 @@ export default class TokenScreen extends Component {
     navigation.navigate('TransactionListScreen')
   }
 
-  loadMoreData = () => {
-    const { offset, overload } = this.state
-    const { chunkTokens } = this.wallet
-    if (overload && offset < chunkTokens.length - 1) {
-      this.setState({
-        list: [...this.state.list, ...chunkTokens[this.state.offset]],
-        offset: this.state.offset + 1
-      })
-    }
-  }
+  // loadMoreData = () => {
+  //   const { offset, overload } = this.state
+  //   const { chunkTokens } = this.wallet
+  //   if (overload && offset < chunkTokens.length - 1) {
+  //     this.setState({
+  //       list: [...this.state.list, ...chunkTokens[this.state.offset]],
+  //       offset: this.state.offset + 1
+  //     })
+  //   }
+  // }
 
-  loadInitialData = () => {
-    const { chunkTokens } = this.wallet
-    this.setState({
-      list: chunkTokens[0],
-      overload: chunkTokens.length > 1,
-      offset: this.state.offset + 1
-    })
-  }
+  // loadInitialData = () => {
+  //   const { chunkTokens } = this.wallet
+  //   this.setState({
+  //     list: chunkTokens[0],
+  //     overload: chunkTokens.length > 1,
+  //     offset: this.state.offset + 1
+  //   })
+  // }
 
   onBackup = () => {
     NavStore.lockScreen({
@@ -177,12 +177,9 @@ export default class TokenScreen extends Component {
   render() {
     const {
       title,
-      tokens,
-      chunkTokens,
+      list,
       refreshing
     } = this.wallet
-    setTimeout(() => console.log(tokens), 5000)
-    setTimeout(() => console.log(WalletDetailStore.getDataTokens), 5000)
     return (
       <View style={{ flex: 1 }}>
         <NavigationHeader
@@ -207,14 +204,15 @@ export default class TokenScreen extends Component {
             this._renderHeader(this.wallet)
           }
           ListFooterComponent={this._renderFooter(this.wallet)}
-          data={WalletDetailStore.getList}
+          data={list}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => `${item.symbol}-${item.address}`}
           refreshing={refreshing}
           onRefresh={this.onRefreshToken}
           renderItem={this.renderItem}
+          onEndReachedThreshold={0.7}
           onEndReached={() => {
-            WalletDetailStore.nextPage()
+            this.wallet.loadMore()
           }}
         />
       </View>

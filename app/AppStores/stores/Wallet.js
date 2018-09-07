@@ -64,6 +64,8 @@ export default class Wallet {
   walletCard = null
 
   @observable chunkTokens = []
+  @observable.ref page = 0
+  @observable.ref list = []
 
   static async generateNew(secureDS, title, index = 0, path = Keystore.CoinType.ETH.path) {
     if (!secureDS) throw new Error('Secure data source is required')
@@ -221,7 +223,18 @@ export default class Wallet {
 
   @action setTokens(tokens) {
     this.tokens = tokens
-    this.chunkTokens = chunk(tokens, 5)
+    this.chunkTokens = chunk(tokens, 3)
+    if (this.list.length == 0) this.list = this.chunkTokens[0]
+  }
+
+  @action loadMore() {
+    console.log(this.page)
+    if (this.page < this.chunkTokens.length - 1 && this.chunkTokens.length > 1) {
+      this.list = [
+        ...this.list,
+        ...this.chunkTokens[++this.page]
+      ]
+    }
   }
 
   @action autoSetSelectedTokenIfNeeded(_tokens) {
