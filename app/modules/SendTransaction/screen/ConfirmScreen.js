@@ -21,6 +21,7 @@ import constant from '../../../commons/constant'
 import NavStore from '../../../AppStores/NavStore'
 import MainStore from '../../../AppStores/MainStore'
 import ActionSheetCustom from '../../../components/elements/ActionSheetCustom'
+import ActionSheetGasEstimate from '../elements/ActionSheetGasEstimate'
 import AppState from '../../../AppStores/AppState'
 import InputWithAction from '../../../components/elements/InputWithActionItem'
 import AddressElement from '../../../components/elements/AddressElement'
@@ -232,7 +233,8 @@ export default class ConfirmScreen extends Component {
               </Text>
               <TouchableOpacity
                 style={styles.standard}
-                onPress={() => this.actionSheet.show()}
+                // onPress={() => this.actionSheet.show()}
+                onPress={() => MainStore.sendTransaction.confirmStore.actionSheet.show()}
               >
                 <Text style={styles.standardText}>{confirmStore.adjust}</Text>
               </TouchableOpacity>
@@ -431,35 +433,35 @@ export default class ConfirmScreen extends Component {
     NavStore.goBack()
   }
 
-  _renderActionSheet() {
-    const { gasPriceEstimate } = MainStore.appState
-    return (
-      <ActionSheetCustom ref={(ref) => { this.actionSheet = ref }} onCancel={this._onCancelAction}>
-        <View style={[styles.actionSheetItem, { borderTopLeftRadius: 5, borderTopRightRadius: 5, height: 60 }]}>
-          <Text style={[styles.actionSheetText, { fontSize: 12, color: '#8A8D97' }]}>Your transaction will process faster with a higher</Text>
-          <Text style={[styles.actionSheetText, { fontSize: 12, color: '#8A8D97' }]}>gas price.</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.actionSheetItem}
-          onPress={() => this._onPressAction(gasPriceEstimate.slow, 'Slow')}
-        >
-          <Text style={styles.actionSheetText}>{`Slow (<30 minutes) ${gasPriceEstimate.slow} Gwei`}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.actionSheetItem}
-          onPress={() => this._onPressAction(gasPriceEstimate.standard, 'Standard')}
-        >
-          <Text style={styles.actionSheetText}>{`Standard (<5 minutes) ${gasPriceEstimate.standard} Gwei`}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.actionSheetItem, { borderBottomLeftRadius: 5, borderBottomRightRadius: 5, borderBottomWidth: 0 }]}
-          onPress={() => this._onPressAction(gasPriceEstimate.fast, 'Fast')}
-        >
-          <Text style={styles.actionSheetText}>{`Fast (<2 minutes) ${gasPriceEstimate.fast} Gwei`}</Text>
-        </TouchableOpacity>
-      </ActionSheetCustom>
-    )
-  }
+  // _renderActionSheet() {
+  //   const { gasPriceEstimate } = MainStore.appState
+  //   return (
+  //     <ActionSheetCustom ref={(ref) => { this.actionSheet = ref }} onCancel={this._onCancelAction}>
+  //       <View style={[styles.actionSheetItem, { borderTopLeftRadius: 5, borderTopRightRadius: 5, height: 60 }]}>
+  //         <Text style={[styles.actionSheetText, { fontSize: 12, color: '#8A8D97' }]}>Your transaction will process faster with a higher</Text>
+  //         <Text style={[styles.actionSheetText, { fontSize: 12, color: '#8A8D97' }]}>gas price.</Text>
+  //       </View>
+  //       <TouchableOpacity
+  //         style={styles.actionSheetItem}
+  //         onPress={() => this._onPressAction(gasPriceEstimate.slow, 'Slow')}
+  //       >
+  //         <Text style={styles.actionSheetText}>{`Slow (<30 minutes) ${gasPriceEstimate.slow} Gwei`}</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={styles.actionSheetItem}
+  //         onPress={() => this._onPressAction(gasPriceEstimate.standard, 'Standard')}
+  //       >
+  //         <Text style={styles.actionSheetText}>{`Standard (<5 minutes) ${gasPriceEstimate.standard} Gwei`}</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={[styles.actionSheetItem, { borderBottomLeftRadius: 5, borderBottomRightRadius: 5, borderBottomWidth: 0 }]}
+  //         onPress={() => this._onPressAction(gasPriceEstimate.fast, 'Fast')}
+  //       >
+  //         <Text style={styles.actionSheetText}>{`Fast (<2 minutes) ${gasPriceEstimate.fast} Gwei`}</Text>
+  //       </TouchableOpacity>
+  //     </ActionSheetCustom>
+  //   )
+  // }
 
   _runKeyboardAnim(toValue) {
     Animated.parallel([
@@ -609,7 +611,8 @@ export default class ConfirmScreen extends Component {
               </Animated.View>
             </View>
           }
-          {this._renderActionSheet()}
+          {/* {this._renderActionSheet()} */}
+          <ActionSheetGasEstimate />
         </View>
       </TouchableWithoutFeedback>
     )

@@ -13,6 +13,7 @@ export default class ConfirmStore {
   // @action setToAddress(address) {
   //   this.transaction.to = address
   // }
+  @observable.ref actionSheet = ''
 
   @action setAdjust(value) {
     this.adjust = value
